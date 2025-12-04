@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location (update with your production URL)
-Sitemap: https://contentearnings.sidepocketlab.com/sitemap.xml
+Sitemap: https://content-earnings.sidepocketlab.com/sitemap.xml
