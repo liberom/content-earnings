@@ -3,25 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>ContentEarnings — CPM / RPM Calculator</title>
+    <title>Content Earnings — CPM / RPM Calculator</title>
     <meta name="description" content="Estimate your content earnings using CPM and RPM rates. Enter your niche and monthly views to get a quick RPM-based revenue estimate and advertiser CPM comparison for YouTube, TikTok, and blogs." />
     <meta name="keywords" content="CPM calculator, RPM calculator, content earnings, YouTube revenue, TikTok earnings, creator payouts, ad revenue calculator" />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://content-earnings.sidepocketlab.com/" />
 
     <!-- Open Graph / Social -->
-    <meta property="og:title" content="ContentEarnings — CPM / RPM Calculator" />
+    <meta property="og:title" content="Content Earnings — CPM / RPM Calculator" />
     <meta property="og:description" content="Quickly estimate creator earnings by niche using CPM and RPM rates. Great for YouTubers, TikTokers, and bloggers." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://content-earnings.sidepocketlab.com/" />
     <meta property="og:image" content="./og-image.svg" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ContentEarnings — CPM / RPM Calculator" />
+    <meta name="twitter:title" content="Content Earnings — CPM / RPM Calculator" />
     <meta name="twitter:description" content="Estimate your content earnings using CPM and RPM rates. Input niche and monthly views to get a revenue forecast." />
     <meta name="twitter:image" content="./og-image.svg" />
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.responsive.css">
 
     <!-- Structured data (JSON-LD) for SEO: WebSite + FAQ -->
     <script type="application/ld+json">
@@ -31,11 +31,11 @@
         {
           "@type": "WebSite",
           "url": "https://content-earnings.sidepocketlab.com/",
-          "name": "ContentEarnings",
+          "name": "Content Earnings",
           "description": "A simple CPM and RPM rate calculator for content creators."
         },
         {
-          "@type": "FAQPage",
+          "@type": "FAQ Page",
           "mainEntity": [
             {
               "@type": "Question",
@@ -43,6 +43,14 @@
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "CPM is the cost an advertiser pays per 1,000 impressions. RPM is the revenue you receive per 1,000 views after the platform takes its share."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are the numbers real?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Values in the site are illustrative defaults estimated by Gemini. You can adjust the niche data in data.json to reflect real-world medians for your audience. Consider using conservative and optimistic ranges for planning."
               }
             }
           ]
@@ -54,7 +62,7 @@
   <body>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href="#">ContentEarnings</a>
+        <a class="brand" href="#">Content Earnings</a>
         <nav class="nav">
           <a href="#how">How it works</a>
           <a href="#faq">FAQ</a>
@@ -99,7 +107,7 @@
         <h3>What is CPM vs RPM?</h3>
         <p><strong>CPM</strong> is what advertisers pay per 1,000 ad impressions. <strong>RPM</strong> is the revenue you receive per 1,000 views after the platform takes its share.</p>
         <h3>Are the numbers real?</h3>
-        <p>Values in the site are illustrative defaults. Use the niche data in <code>data.json</code> to reflect real-world medians for your audience. Consider using conservative and optimistic ranges for planning.</p>
+        <p>Values in the site are illustrative defaults estimated by Gemini. You can adjust the niche data in <code>data.json</code> to reflect real-world medians for your audience. Consider using conservative and optimistic ranges for planning.</p>
       </section>
 
       <footer class="site-footer">

@@ -1,36 +1,39 @@
-// script.js — enhanced CPM/RPM calculator (uses structured ranges from data.json)
+// script.js — robust CPM/RPM calculator with improved niche select handling
 const defaultNiches = {
-  "general": { cpm: { low: 1.5, mid: 3.0, high: 4.0 }, rpm: { low: 0.6, mid: 1.65, high: 2.4 } },
-  "tech": { cpm: { low: 4.0, mid: 8.0, high: 12.0 }, rpm: { low: 2.5, mid: 4.4, high: 6.0 } }
+  general: { cpm: { low: 1.5, mid: 3.0, high: 4.0 }, rpm: { low: 0.6, mid: 1.65, high: 2.4 } },
+  tech: { cpm: { low: 4.0, mid: 8.0, high: 12.0 }, rpm: { low: 2.5, mid: 4.4, high: 6.0 } }
 };
 
 async function loadNiches(){
   try{
-    const res = await fetch('data.json', {cache: 'no-store'});
+    const res = await fetch('data.json', { cache: 'no-store' });
     if(!res.ok) throw new Error('no data.json');
-    const data = await res.json();
+    // Read as text to handle repositories where data.json may accidentally include
+    // markdown fences (```json) or other wrappers. Strip common fences before parsing.
+    let text = await res.text();
+    // Remove leading/trailing triple backticks and optional language marker
+    text = text.replace(/^\s*```[a-zA-Z]*\s*/,'').replace(/\s*```\s*$/,'');
+    // Trim BOM if present
+    text = text.replace(/^\uFEFF/, '');
+    const data = JSON.parse(text);
     return data;
   }catch(e){
+    // Graceful fallback to built-in defaults
     return defaultNiches;
   }
 }
 
 function formatMoney(n){ return '$' + Number(n).toFixed(2); }
 
-function asRange(valueOrObj){
-  // Accept either a number (legacy) or an object {low, mid, high}
-  if (valueOrObj == null) return null;
-  if (typeof valueOrObj === 'number'){
-    const mid = valueOrObj;
-    const low = mid * 0.75;
-    const high = mid * 1.25;
-    return { low, mid, high };
+function asRange(v){
+  if (v == null) return null;
+  if (typeof v === 'number'){
+    const mid = v; return { low: mid*0.75, mid, high: mid*1.25 };
   }
-  if (typeof valueOrObj === 'object'){
-    // ensure mid exists; if only low/high present, derive mid
-    const low = Number(valueOrObj.low ?? valueOrObj.min ?? 0);
-    const high = Number(valueOrObj.high ?? valueOrObj.max ?? 0);
-    const mid = Number(valueOrObj.mid ?? ((low && high) ? ((low+high)/2) : valueOrObj ?? 0));
+  if (typeof v === 'object'){
+    const low = Number(v.low ?? v.min ?? 0);
+    const high = Number(v.high ?? v.max ?? 0);
+    const mid = Number(v.mid ?? ((low && high) ? ((low+high)/2) : (v ?? 0)));
     return { low, mid, high };
   }
   return null;
@@ -44,52 +47,63 @@ async function init(){
   const resetBtn = document.getElementById('reset');
   const resultEl = document.getElementById('result');
 
-  // populate select, preserving insertion order from data.json
-  Object.keys(niches).forEach(k => {
+  // Clear any existing options (defensive)
+  nicheEl.innerHTML = '';
+
+  // Add a simple placeholder that is selectable on all platforms (disabled placeholders
+  // cause inconsistent behavior on some mobile browsers).
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = 'Select a niche...';
+  placeholder.selected = true;
+  nicheEl.appendChild(placeholder);
+
+  // Populate options preserving insertion order from data.json
+  Object.keys(niches).forEach(key => {
     const opt = document.createElement('option');
-    opt.value = k;
-    // nicer label: convert underscores and camel-case to spaced words
-    opt.textContent = k.replace(/_/g, ' ').replace(/\b\w/g, s => s.toUpperCase());
+    opt.value = key;
+    opt.textContent = key.replace(/_/g,' ').replace(/\b\w/g, s => s.toUpperCase());
     nicheEl.appendChild(opt);
   });
 
+  // Allow the user to press Enter on the select/input to calculate
+  [nicheEl, viewsEl].forEach(el => el.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') calcBtn.click();
+  }));
+
   function calculate(){
-    const nicheKey = nicheEl.value || Object.keys(niches)[0];
-    const entry = niches[nicheKey] || {};
+    // If user left placeholder (''), fallback to first data key or 'general'
+    const raw = nicheEl.value;
+    const chosen = raw === '' ? (Object.keys(niches)[0] || 'general') : raw;
+    const entry = niches[chosen] || {};
     const views = Math.max(0, Number(viewsEl.value) || 0);
 
-    const rpmRange = asRange(entry.rpm);
-    const cpmRange = asRange(entry.cpm);
+    const rpmRange = asRange(entry.rpm) ?? asRange(defaultNiches.general.rpm);
+    const cpmRange = asRange(entry.cpm) ?? asRange(defaultNiches.general.cpm);
 
-    // if rpmRange or cpmRange are missing, fallback to defaults
-    const rpm = rpmRange ?? asRange(defaultNiches['general'].rpm);
-    const cpm = cpmRange ?? asRange(defaultNiches['general'].cpm);
+    const estMidRPM = (views/1000) * rpmRange.mid;
+    const estLowRPM = (views/1000) * rpmRange.low;
+    const estHighRPM = (views/1000) * rpmRange.high;
 
-    const estMidRPM = (views/1000) * rpm.mid;
-    const estLowRPM = (views/1000) * rpm.low;
-    const estHighRPM = (views/1000) * rpm.high;
+    const estMidCPM = (views/1000) * cpmRange.mid;
+    const estLowCPM = (views/1000) * cpmRange.low;
+    const estHighCPM = (views/1000) * cpmRange.high;
 
-    const estMidCPM = (views/1000) * cpm.mid;
-    const estLowCPM = (views/1000) * cpm.low;
-    const estHighCPM = (views/1000) * cpm.high;
-
+    // Only show the summary in results — detailed niche numbers removed for brevity
     resultEl.innerHTML = `
       <div class="summary">
         <p class="big">Estimated monthly revenue (RPM mid): <strong>${formatMoney(estMidRPM)}</strong></p>
         <p class="muted">Range: ${formatMoney(estLowRPM)} — ${formatMoney(estHighRPM)} (RPM)</p>
         <p class="muted">Advertiser CPM range: ${formatMoney(estLowCPM)} — ${formatMoney(estHighCPM)} (CPM)</p>
       </div>
-      <div class="details">
-        <p><strong>Selected niche:</strong> ${nicheKey.replace(/_/g,' ').replace(/\b\w/g, s => s.toUpperCase())}</p>
-        <p><strong>RPM (per 1,000 views):</strong> ${formatMoney(rpm.low)} — ${formatMoney(rpm.mid)} — ${formatMoney(rpm.high)}</p>
-        <p><strong>CPM (advertiser):</strong> ${formatMoney(cpm.low)} — ${formatMoney(cpm.mid)} — ${formatMoney(cpm.high)}</p>
-      </div>
     `;
   }
 
   calcBtn.addEventListener('click', calculate);
   resetBtn.addEventListener('click', ()=>{
-    viewsEl.value = 10000; nicheEl.selectedIndex = 0; resultEl.innerHTML = '';
+    viewsEl.value = 10000;
+    nicheEl.selectedIndex = 0; // placeholder
+    resultEl.innerHTML = '<p class="muted">Choose a niche and enter monthly views, then click Calculate.</p>';
   });
 
   // initial friendly content
