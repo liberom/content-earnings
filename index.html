@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ContentEarnings — CPM / RPM Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container">
+      <h1>CPM / RPM Rate Calculator</h1>
+
+      <div class="row">
+        <label for="niche">Niche</label>
+        <select id="niche" aria-label="Niche"></select>
+      </div>
+
+      <div class="row">
+        <label for="views">Average monthly views / plays</label>
+        <input id="views" type="number" value="10000" min="0" />
+      </div>
+
+      <div class="row actions">
+        <button id="calc">Calculate</button>
+        <button id="reset" class="secondary">Reset</button>
+      </div>
+
+      <section id="result" class="result" aria-live="polite"></section>
+
+      <footer class="notes">
+        <small>Values are illustrative. Use niche rates to tune results.</small>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "general": { "cpm": 2.0, "rpm": 1.0 },
+  "tech": { "cpm": 5.0, "rpm": 3.0 },
+  "finance": { "cpm": 10.0, "rpm": 6.0 },
+  "lifestyle": { "cpm": 1.5, "rpm": 0.9 },
+  "gaming": { "cpm": 3.0, "rpm": 1.8 },
+  "education": { "cpm": 4.0, "rpm": 2.2 }
+}
