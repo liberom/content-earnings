@@ -1,8 +1,42 @@
 {
-  "general": { "cpm": 2.0, "rpm": 1.0 },
-  "tech": { "cpm": 5.0, "rpm": 3.0 },
-  "finance": { "cpm": 10.0, "rpm": 6.0 },
-  "lifestyle": { "cpm": 1.5, "rpm": 0.9 },
-  "gaming": { "cpm": 3.0, "rpm": 1.8 },
-  "education": { "cpm": 4.0, "rpm": 2.2 }
+  "general": {
+    "cpm": { "low": 1.5, "mid": 3.0, "high": 4.0 },
+    "rpm": { "low": 0.6, "mid": 1.65, "high": 2.4 }
+  },
+  "tech": {
+    "cpm": { "low": 4.0, "mid": 8.0, "high": 12.0 },
+    "rpm": { "low": 2.5, "mid": 4.4, "high": 6.0 }
+  },
+  "finance": {
+    "cpm": { "low": 12.0, "mid": 25.0, "high": 40.0 },
+    "rpm": { "low": 6.0, "mid": 13.75, "high": 20.0 }
+  },
+  "lifestyle": {
+    "cpm": { "low": 1.8, "mid": 4.0, "high": 6.0 },
+    "rpm": { "low": 0.8, "mid": 2.2, "high": 3.5 }
+  },
+  "gaming": {
+    "cpm": { "low": 2.0, "mid": 5.0, "high": 8.0 },
+    "rpm": { "low": 1.0, "mid": 2.75, "high": 4.5 }
+  },
+  "education": {
+    "cpm": { "low": 3.0, "mid": 10.0, "high": 15.0 },
+    "rpm": { "low": 1.2, "mid": 5.5, "high": 8.0 }
+  },
+  "health_wellness": {
+    "cpm": { "low": 3.5, "mid": 7.0, "high": 12.0 },
+    "rpm": { "low": 1.6, "mid": 3.85, "high": 6.5 }
+  },
+  "beauty_fashion": {
+    "cpm": { "low": 5.0, "mid": 10.0, "high": 18.0 },
+    "rpm": { "low": 2.5, "mid": 5.5, "high": 9.0 }
+  },
+  "travel": {
+    "cpm": { "low": 4.0, "mid": 8.0, "high": 12.0 },
+    "rpm": { "low": 2.0, "mid": 4.4, "high": 7.0 }
+  },
+  "entertainment": {
+    "cpm": { "low": 1.2, "mid": 2.5, "high": 4.0 },
+    "rpm": { "low": 0.6, "mid": 1.38, "high": 2.6 }
+  }
 }

@@ -30,7 +30,6 @@ cpm-rpm-project/
    mkdir cpm-rpm-project
    cd cpm-rpm-project
    ```
-
 2. Initialize a Git repo (optional)
 
    ```bash
@@ -38,7 +37,6 @@ cpm-rpm-project/
    git add .
    git commit -m "chore: scaffold CPM/RPM project"
    ```
-
 3. Create minimal files
 
    - `index.html`: basic page with inputs for Niche, Monthly Views, and Calculate button.
@@ -108,7 +106,6 @@ cpm-rpm-project/
      resultEl.innerHTML = `Estimated revenue: <strong>${formatMoney(estByRPM)}</strong> (RPM) — <em>advertiser CPM suggests ${formatMoney(estByCPM)}</em>`;
    });
    ```
-
 4. Run locally
 
    - Quick static server (Python):
@@ -118,25 +115,21 @@ cpm-rpm-project/
      python -m http.server 8000
      # then open http://localhost:8000
      ```
-
    - Or install `live-server` (npm) for auto-reload:
 
      ```bash
      npm install -g live-server
      live-server --port=8000
      ```
-
 5. Data and tuning
 
    - Replace the small `niches` table with `data.json` if you want to store more niches and ranges.
    - Provide low/median/high CPM/RPM values to show a range rather than a single number.
    - Add explanation text and a small FAQ for SEO.
-
 6. Deployment
 
    - Buildless: Deploy the folder as a static site to GitHub Pages, Netlify, or Vercel.
    - If you use a bundler (Rollup/Vite), add `npm init -y` and the build scripts.
-
 7. Optional improvements (next steps)
 
    - Add TypeScript for better developer DX (`script.ts`) and a minimal bundler like Vite.
@@ -162,13 +155,5 @@ live-server --port=8000
 
 - Project name chosen: `ContentEarnings`.
 - Focus on a minimal, SEO-friendly landing page and a simple, highly shareable tool.
-- Monetization can be simple: display ads or an optional pro report.
 
 ---
-
-If you'd like, I can also:
-
-- Create the initial `index.html`, `script.js`, and `styles.css` files inside `cpm-rpm-project` now.
-- Initialize `package.json` and add a `dev` script using `live-server` or `vite`.
-
-Tell me which of those you'd like me to do next.

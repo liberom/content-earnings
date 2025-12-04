@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap location (update with your production URL)
+Sitemap: https://contentearnings.sidepocketlab.com/sitemap.xml

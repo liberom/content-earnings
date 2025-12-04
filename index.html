@@ -4,31 +4,109 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>ContentEarnings — CPM / RPM Calculator</title>
+    <meta name="description" content="Estimate your content earnings using CPM and RPM rates. Enter your niche and monthly views to get a quick RPM-based revenue estimate and advertiser CPM comparison for YouTube, TikTok, and blogs." />
+    <meta name="keywords" content="CPM calculator, RPM calculator, content earnings, YouTube revenue, TikTok earnings, creator payouts, ad revenue calculator" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://contentearnings.sidepocketlab.com/" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="ContentEarnings — CPM / RPM Calculator" />
+    <meta property="og:description" content="Quickly estimate creator earnings by niche using CPM and RPM rates. Great for YouTubers, TikTokers, and bloggers." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://contentearnings.sidepocketlab.com/" />
+    <meta property="og:image" content="og-image.svg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ContentEarnings — CPM / RPM Calculator" />
+    <meta name="twitter:description" content="Estimate your content earnings using CPM and RPM rates. Input niche and monthly views to get a revenue forecast." />
+    <meta name="twitter:image" content="og-image.svg" />
+
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Structured data (JSON-LD) for SEO: WebSite + FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "url": "https://contentearnings.sidepocketlab.com/",
+          "name": "ContentEarnings",
+          "description": "A simple CPM and RPM rate calculator for content creators."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is CPM vs RPM?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "CPM is the cost an advertiser pays per 1,000 impressions. RPM is the revenue you receive per 1,000 views after the platform takes its share."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="#">ContentEarnings</a>
+        <nav class="nav">
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
     <main class="container">
-      <h1>CPM / RPM Rate Calculator</h1>
+      <section id="how" class="panel">
+        <h2>How it works</h2>
+        <p>This tool uses industry-standard CPM (advertiser cost per 1,000 impressions) and RPM (revenue per 1,000 views after
+          platform cuts) figures to give a quick earnings estimate. Values are illustrative — tune rates in
+          <code>data.json</code> for more accuracy.</p>
+        <ul class="features">
+          <li><strong>Quick:</strong> Get a forecast in seconds.</li>
+          <li><strong>Niche-aware:</strong> Values vary by niche such as Finance, Tech, Gaming, etc.</li>
+          <li><strong>Shareable:</strong> Use the estimate for planning and pitches.</li>
+        </ul>
+      </section>
 
-      <div class="row">
-        <label for="niche">Niche</label>
-        <select id="niche" aria-label="Niche"></select>
-      </div>
+      <section class="hero">
+        <h1>CPM &amp; RPM Rate Calculator</h1>
+        <p class="lede">Estimate your content earnings quickly. Enter your niche and average monthly views to get a RPM-based revenue estimate and advertiser CPM comparison.</p>
+        <div class="cta">
+          <label for="niche">Niche
+            <select id="niche" aria-label="Niche"></select>
+          </label>
+          <label for="views">Monthly views / plays
+            <input id="views" type="number" value="10000" min="0" />
+          </label>
+          <div class="cta-actions">
+            <button id="calc" class="primary">Calculate</button>
+            <button id="reset" class="secondary">Reset</button>
+          </div>
+        </div>
 
-      <div class="row">
-        <label for="views">Average monthly views / plays</label>
-        <input id="views" type="number" value="10000" min="0" />
-      </div>
+        <div id="result" class="result" aria-live="polite"></div>
+      </section>
 
-      <div class="row actions">
-        <button id="calc">Calculate</button>
-        <button id="reset" class="secondary">Reset</button>
-      </div>
+      <section id="faq" class="panel">
+        <h2>FAQ</h2>
+        <h3>What is CPM vs RPM?</h3>
+        <p><strong>CPM</strong> is what advertisers pay per 1,000 ad impressions. <strong>RPM</strong> is the revenue you receive per 1,000 views after the platform takes its share.</p>
+        <h3>Are the numbers real?</h3>
+        <p>Values in the site are illustrative defaults. Use the niche data in <code>data.json</code> to reflect real-world medians for your audience. Consider using conservative and optimistic ranges for planning.</p>
+      </section>
 
-      <section id="result" class="result" aria-live="polite"></section>
-
-      <footer class="notes">
-        <small>Values are illustrative. Use niche rates to tune results.</small>
+      <footer class="site-footer">
+        <div class="wrap">
+          <p>Built for creators — <strong>ContentEarnings</strong>. Small, fast, and shareable.</p>
+          <!-- <p class="muted">See <a href="../CPM_RPM Rate Calculator.md">project spec</a> for background and suggested rates.</p> -->
+        </div>
       </footer>
     </main>
 
